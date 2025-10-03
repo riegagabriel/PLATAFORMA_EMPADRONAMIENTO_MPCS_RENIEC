@@ -52,6 +52,38 @@ with tab2:
     ]["Jornada de trabajo"].dropna().unique()
     fecha_opcion = st.selectbox("Seleccione Fecha de Registro", sorted(fechas_filtradas))
     
+    # --- CALCULAR KPIs ---
+    
+    # KPI 1: Total empadronados en la fecha seleccionada
+    total_fecha_seleccionada = len(data[
+        (data["MCP"] == mcps_opcion) &
+        (data["Empadronador"] == empadronador_opcion) &
+        (data["Jornada de trabajo"] == fecha_opcion)
+    ])
+    
+    # KPI 2: Total empadronados en TODAS las fechas para este empadronador
+    total_todas_fechas = len(data[
+        (data["MCP"] == mcps_opcion) &
+        (data["Empadronador"] == empadronador_opcion)
+    ])
+    
+    # --- MOSTRAR KPIs EN CAJAS ---
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.metric(
+            label=f"📅 Empadronados en {fecha_opcion}",
+            value=total_fecha_seleccionada,
+            help=f"Total de personas empadronadas por {empadronador_opcion} en la fecha seleccionada"
+        )
+    
+    with col2:
+        st.metric(
+            label="🏆 Total General del Empadronador",
+            value=total_todas_fechas,
+            help=f"Total acumulado de todas las jornadas de trabajo de {empadronador_opcion}"
+        )
+    
     # 4. Mostrar resultados finales
     resultados_finales = data[
         (data["MCP"] == mcps_opcion) &
