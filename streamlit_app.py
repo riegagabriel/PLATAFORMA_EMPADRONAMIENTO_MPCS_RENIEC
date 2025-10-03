@@ -24,7 +24,7 @@ with tab1:
     dni_input = st.text_input("Ingrese el DNI:", "")
     
     if dni_input:
-        resultados = data[data["dni_empadronado"].astype(str).str.contains(dni_input)]
+        resultados = data[data["ID del empadronado"].astype(str).str.contains(dni_input)]
         
         if not resultados.empty:
             st.success(f"🔎 Se encontraron {len(resultados)} resultados")
@@ -39,25 +39,25 @@ with tab2:
     st.subheader("Buscar DNIs por MCPS → Empadronador → Fecha")
     
     # 1. Seleccionar MCPS
-    mcps_opcion = st.selectbox("Seleccione MCPS", sorted(data["MCPS"].dropna().unique()))
+    mcps_opcion = st.selectbox("Seleccione MCPS", sorted(data["MCP"].dropna().unique()))
     
     # 2. Filtrar empadronadores según MCPS elegido
-    empadronadores_filtrados = data[data["MCPS"] == mcps_opcion]["EMPADRONADORES_ORIGINAL"].dropna().unique()
+    empadronadores_filtrados = data[data["MCP"] == mcps_opcion]["Empadronador"].dropna().unique()
     empadronador_opcion = st.selectbox("Seleccione Empadronador", sorted(empadronadores_filtrados))
     
     # 3. Filtrar fechas según MCPS + empadronador
     fechas_filtradas = data[
-        (data["MCPS"] == mcps_opcion) &
-        (data["EMPADRONADORES_ORIGINAL"] == empadronador_opcion)
-    ]["fecha_registro"].dropna().unique()
+        (data["MCP"] == mcps_opcion) &
+        (data["Empadronador"] == empadronador_opcion)
+    ]["Jornada de trabajo"].dropna().unique()
     fecha_opcion = st.selectbox("Seleccione Fecha de Registro", sorted(fechas_filtradas))
     
     # 4. Mostrar resultados finales
     resultados_finales = data[
-        (data["MCPS"] == mcps_opcion) &
-        (data["EMPADRONADORES_ORIGINAL"] == empadronador_opcion) &
-        (data["fecha_registro"] == fecha_opcion)
+        (data["MCP"] == mcps_opcion) &
+        (data["Empadronador"] == empadronador_opcion) &
+        (data["Jornada de trabajo"] == fecha_opcion)
     ]
     
     st.write(f"📌 Resultados para MCPS: **{mcps_opcion}**, Empadronador: **{empadronador_opcion}**, Fecha: **{fecha_opcion}**")
-    st.dataframe(resultados_finales[["dni_empadronado", "nombres_empadronado", "departamento"]])
+    st.dataframe(resultados_finales[["ID del empadronado", "Nombre del empadronado", "Departamento"]])
