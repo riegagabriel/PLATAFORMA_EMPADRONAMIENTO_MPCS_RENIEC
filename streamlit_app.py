@@ -21,6 +21,15 @@ tab1, tab2 = st.tabs(["🔍 Buscar por DNI", "📅 Filtros por MCPS/Empadronador
 with tab1:
     st.subheader("Buscar empadronado por DNI")
     
+    # Texto explicativo
+    st.write("""
+    **Instrucciones de uso:**
+    - Ingrese el número de DNI completo o parcial del empadronado
+    - El sistema buscará coincidencias en la base de datos, según el momento de actualización.
+    - En el caso de que el DNI que ud. busca tengan dígitos "0" (cero) al comienzo, intente omitirlos para hacer la búsqueda. ( Si busco el DNI "07253387", ingresaré la búsqueda "7253387) 
+    - Los resultados mostrarán toda la información disponible del empadronado
+    """)
+    
     dni_input = st.text_input("Ingrese el DNI:", "")
     
     if dni_input:
