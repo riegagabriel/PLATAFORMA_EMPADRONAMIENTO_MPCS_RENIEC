@@ -5,7 +5,11 @@ import pandas as pd
 # Cargar Excel directamente desde el repo (ruta relativa)
 data = pd.read_excel("clean_empa.xlsx")
 
+st.subheader("Primeros 5 registros")
 st.write(data.head())
+
+st.subheader("Últimos 5 registros")
+st.write(data.tail())
 
 
 st.set_page_config(page_title="Búsqueda de Empadronados", layout="wide")
