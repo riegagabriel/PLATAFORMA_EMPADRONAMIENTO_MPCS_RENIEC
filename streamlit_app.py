@@ -79,7 +79,7 @@ with tab2:
     
     with col2:
         st.metric(
-            label="🏆 Total General del Empadronador",
+            label="🏆 Cantidad total de empadronados según Empadronador",
             value=total_todas_fechas,
             help=f"Total acumulado de todas las jornadas de trabajo de {empadronador_opcion}"
         )
