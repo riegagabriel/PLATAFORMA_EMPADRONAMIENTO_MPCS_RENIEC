@@ -2,9 +2,11 @@
 import streamlit as st
 import pandas as pd
 
-# --- Cargar archivo Excel desde GitHub ---
-url = "https://github.com/USUARIO/REPO/raw/main/clean_empa.xlsx"
-data = pd.read_excel(url)
+# Cargar Excel directamente desde el repo (ruta relativa)
+data = pd.read_excel("clean_empa.xlsx")
+
+st.write(data.head())
+
 
 st.set_page_config(page_title="Búsqueda de Empadronados", layout="wide")
 
